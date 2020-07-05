@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, Icon, Input, Button} from 'react-native-elements'
+import {Text, Input, Button} from 'react-native-elements'
 import { Modal as M, View, Alert } from 'react-native'
 import { Col, Row } from "react-native-easy-grid"
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -19,6 +19,7 @@ export default class Modal extends React.Component{
     }
 
     onChangeDate = (e, date) => {
+        if(!date)return
         let fecha = date.getFullYear()+'-'+(date.getMonth()+1<=9?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(date.getDate()<10?'0'+date.getDate():date.getDate())
         console.log(fecha)
         this.setState({showPickerDate: false, fecha})
@@ -26,12 +27,9 @@ export default class Modal extends React.Component{
     }
 
     onChangeTime = (e, date) => {
+        if(!date)return
         let hora = (date.getHours()<10?'0'+date.getHours():date.getHours())+':'+(date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes())+':00'
         this.setState({showPickerTime: false, hora})
-    }
-
-    onChangeTextTitulo = e => {
-        console.log(e)
     }
 
     validar = () => {

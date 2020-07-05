@@ -8,7 +8,7 @@
 
 import React from 'react'
 import {StyleSheet, SafeAreaView, View, ScrollView, Alert, ActivityIndicator, Vibration, ToastAndroid} from 'react-native'
-import {Header, Icon, ListItem, Text} from 'react-native-elements'
+import {Header, Icon, ListItem, Text, Tooltip} from 'react-native-elements'
 import Modal from './components/Modal'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -70,7 +70,8 @@ export default class App extends React.Component{
                     await this.setState({listaTareas: listado})
                     await AsyncStorage.removeItem('listado')
                     await AsyncStorage.setItem('listado', JSON.stringify(this.state.listaTareas))
-                    console.log(this.state)
+                    Vibration.vibrate()
+                    ToastAndroid.show('Tarea Eliminada!!', ToastAndroid.SHORT)
                 }
             },
             {
@@ -106,6 +107,7 @@ export default class App extends React.Component{
                                             subtitle = {ele.descripcion}
                                             style={{borderBottomWidth: 1.5, borderBottomColor: '#eeeeee'}}
                                             onPress = { () => this.clickList(index, ele)}
+                                            onLongPress = {() => ToastAndroid.show(ele.fecha+" "+ele.hora, ToastAndroid.SHORT)}
                                         />
                                     )
                                 }) 
@@ -119,9 +121,5 @@ export default class App extends React.Component{
     }
 }
 
-
-const styles = StyleSheet.create({
-  
-});
 
 
